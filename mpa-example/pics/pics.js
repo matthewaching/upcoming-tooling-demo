@@ -1,4 +1,5 @@
 const contentContainer = document.querySelector(".contentContainer");
+const headerContainer = document.querySelector(".headerContainer");
 const slot = document.querySelector(".letterSlot");
 const buttons = document.querySelectorAll(".letterButton");
 
@@ -28,14 +29,39 @@ const swapLetter = async (event) => {
             newImage.className = "catImage";
 
             imageContainer.appendChild(newImage);
-
-            const catHeader = contentContainer.querySelector("h1");
-
-            contentContainer.insertBefore(imageContainer, catHeader);
+            contentContainer.insertAdjacentElement('afterbegin', imageContainer);
         }
     } else if (image) {
         const imageContainer = contentContainer.querySelector(".imageContainer");
         contentContainer.removeChild(imageContainer);
+    }
+
+    const existingSubtitle = document.querySelector(".imageSubtitle");
+    let subtitleString = '';
+
+    if (letter === 'f') {
+        subtitleString = "that's not very nice";
+    } else if (letter === 'l') {
+        subtitleString = 'the gainz';
+    } else if (letter === 'gy') {
+        subtitleString = "sheeeeesh";
+    } else if (letter === 'x') {
+        subtitleString = "that doesn't look right...";
+    }
+
+    if (existingSubtitle) {
+        if (subtitleString) {
+            existingSubtitle.textContent = subtitleString;
+        } else {
+            headerContainer.removeChild(existingSubtitle);
+        }
+    } else if (subtitleString) {
+        const newSubtitle = document.createElement('p');
+        newSubtitle.className = 'imageSubtitle';
+        newSubtitle.textContent = subtitleString;
+
+        const catHeader = headerContainer.querySelector("h1");
+        catHeader.insertAdjacentElement('afterend', newSubtitle);
     }
 };
 

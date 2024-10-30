@@ -2,22 +2,33 @@ import { useEffect, useState } from 'react';
 
 const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy'];
 
-const CatPics = () => {
+export default function CatPics() {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
     const [imageUrl, setImageUrl] = useState<string>('');
+    const [subtitle, setSubtitle] = useState<string>('');
 
     const swapLetter = async (event: React.MouseEvent) => {
-        const letter = event.currentTarget.id;
-        setSelectedLetter(letter ?? '_');
+        const letter = event.currentTarget.id ?? '';
+        setSelectedLetter(letter || '_');
 
-        if (letter) {
-            const res = await fetch('https://ssr-sandbox.mching.dev/api/catpicture', {
-                method: 'POST',
-                body: JSON.stringify({ letterInput: letter }),
-            });
+        const res = await fetch('https://ssr-sandbox.mching.dev/api/catpicture', {
+            method: 'POST',
+            body: JSON.stringify({ letterInput: letter }),
+        });
 
-            const body = await res.json();
-            setImageUrl(body.catUrl ?? '');
+        const body = await res.json();
+        setImageUrl(body.catUrl ?? '');
+
+        if (letter === 'f') {
+            setSubtitle('that\'s not very nice');
+        } else if (letter === 'l') {
+            setSubtitle('the gainz');
+        } else if (letter === 'gy') {
+            setSubtitle('sheeeeesh');
+        } else if (letter === 'x') {
+            setSubtitle('that doesn\'t look right...');
+        } else {
+            setSubtitle('');
         }
     };
 
@@ -32,13 +43,16 @@ const CatPics = () => {
                     <img className='catImage' src={imageUrl} alt='this is cat' />
                 </div>
             )}
-            <h1>
-                {'this is a '}
-                <span className='letterSlot'>
-                    {selectedLetter}
-                </span>
-                {'at cat.'}
-            </h1>
+            <div className="headerContainer">
+                <h1>
+                    {'this is a '}
+                    <span className='letterSlot'>
+                        {selectedLetter}
+                    </span>
+                    {'at cat.'}
+                </h1>
+                {subtitle && <p className='imageSubtitle'>{subtitle}</p>}
+            </div>
             <div className='buttons'>
                 {availableLetters.map(letter => (
                     <button
@@ -54,6 +68,4 @@ const CatPics = () => {
             <button id='x' key='x' className='letterButton' onClick={swapLetter}>x</button>
         </div>
     );
-};
-
-export default CatPics;
+}
