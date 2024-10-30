@@ -1,4 +1,5 @@
 const contentContainer = document.querySelector(".contentContainer");
+const imageContainer = document.querySelector(".imageContainer");
 const headerContainer = document.querySelector(".headerContainer");
 const slot = document.querySelector(".letterSlot");
 const buttons = document.querySelectorAll(".letterButton");
@@ -7,12 +8,17 @@ const swapLetter = async (event) => {
     const letter = event.currentTarget.id;
     slot.textContent = letter;
 
+    const catImage = document.querySelector(".catImage");
     const existingLoadingSpinner = document.querySelector('loadingSpinner');
 
     if (!existingLoadingSpinner) {
         const loadingSpinner = document.createElement('div');
         loadingSpinner.className = 'loadingSpinner';
-        contentContainer.insertAdjacentElement('afterbegin', loadingSpinner);
+        imageContainer.insertAdjacentElement('afterbegin', loadingSpinner);
+
+        if (catImage) {
+            imageContainer.removeChild(catImage);
+        }
     }
 
     const res = await fetch("https://ssr-sandbox.mching.dev/api/catpicture", {
@@ -23,28 +29,16 @@ const swapLetter = async (event) => {
     const body = await res.json();
 
     const loadingSpinnerToRemove = document.querySelector('loadingSpinner');
-    contentContainer.removeChild(loadingSpinnerToRemove);
-
-    const image = document.querySelector(".catImage");
+    imageContainer.removeChild(loadingSpinnerToRemove);
 
     if (body.catUrl) {
-        if (image) {
-            image.src = body.catUrl;
-        } else {
-            const imageContainer = document.createElement("div");
-            imageContainer.className = "imageContainer";
+        const newImage = document.createElement("img");
+        newImage.src = body.catUrl;
+        newImage.alt = "this is cat";
+        newImage.className = "catImage";
 
-            const newImage = document.createElement("img");
-            newImage.src = body.catUrl;
-            newImage.alt = "this is cat";
-            newImage.className = "catImage";
-
-            imageContainer.appendChild(newImage);
-            contentContainer.insertAdjacentElement('afterbegin', imageContainer);
-        }
-    } else if (image) {
-        const imageContainer = contentContainer.querySelector(".imageContainer");
-        contentContainer.removeChild(imageContainer);
+        imageContainer.appendChild(newImage);
+        contentContainer.insertAdjacentElement('afterbegin', imageContainer);
     }
 
     const existingSubtitle = document.querySelector(".imageSubtitle");
