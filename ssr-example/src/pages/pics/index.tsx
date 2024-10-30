@@ -31,7 +31,7 @@ export default function CatPics() {
             </Head>
             <Link href='/'>go to cat facts</Link>
             <div className='contentContainer'>
-                {selectedLetter !== '_' && (
+                {imageUrl && (
                     <div className='imageContainer'>
                         <Image className='catImage' src={imageUrl} alt='this is cat' />
                     </div>

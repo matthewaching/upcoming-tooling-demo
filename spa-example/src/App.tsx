@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 import CatFacts from './components/CatFacts';
 import CatPics from './components/CatPics';
 
