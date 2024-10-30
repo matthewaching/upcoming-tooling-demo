@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy'];
+const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy', 'x'];
 
 export default function CatPics() {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
@@ -69,7 +69,6 @@ export default function CatPics() {
                         </button>
                     ))}
                 </div>
-                <button id='x' key='x' className='letterButton' onClick={swapLetter}>x</button>
             </div>
         </>
     );
