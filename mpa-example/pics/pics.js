@@ -12,8 +12,7 @@ const swapLetter = async (event) => {
   });
 
   const body = await res.json();
-  const imageUrl = body.catUrl;
-  image.src = imageUrl;
+  image.src = body.catUrl;
 };
 
 buttons.forEach((button) => button.addEventListener("click", swapLetter));
