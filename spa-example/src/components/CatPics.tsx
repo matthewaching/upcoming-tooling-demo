@@ -1,10 +1,25 @@
 import { useEffect, useState } from 'react';
 
+const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy'];
+
 const CatPics = () => {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
+    const [imageUrl, setImageUrl] = useState<string>('');
 
-    const onClick = (event: React.MouseEvent) => {
-        setSelectedLetter(event.currentTarget.textContent ?? '');
+    const swapLetter = async (event: React.MouseEvent) => {
+        const letter = event.currentTarget.id ?? '_';
+        setSelectedLetter(letter);
+
+        if (letter !== '_') {
+            const res = await fetch("https://ssr-sandbox.mching.dev/api/catpicture", {
+                method: "POST",
+                body: JSON.stringify({ letterInput: letter }),
+            });
+
+            const body = await res.json();
+            const imageUrl = body.catUrl ?? '';
+            setImageUrl(imageUrl);
+        }
     };
 
     useEffect(() => {
@@ -13,7 +28,7 @@ const CatPics = () => {
 
     return (
         <div>
-            <img className="catDisplay" src="" alt='this is cat' />
+            <img className="catDisplay" src={imageUrl} alt='this is cat' />
             <h1>
                 {'this is a '}
                 <span className="letterSlot">
@@ -22,17 +37,16 @@ const CatPics = () => {
                 {'at cat.'}
             </h1>
             <div className="buttons">
-                <button className="letterButton" onClick={onClick}>b</button>
-                <button className="letterButton" onClick={onClick}>c</button>
-                <button className="letterButton" onClick={onClick}>f</button>
-                <button className="letterButton" onClick={onClick}>h</button>
-                <button className="letterButton" onClick={onClick}>l</button>
-                <button className="letterButton" onClick={onClick}>m</button>
-                <button className="letterButton" onClick={onClick}>p</button>
-                <button className="letterButton" onClick={onClick}>r</button>
-                <button className="letterButton" onClick={onClick}>s</button>
-                <button className="letterButton" onClick={onClick}>t</button>
-                <button className="letterButton" onClick={onClick}>gy</button>
+                {availableLetters.map(letter => (
+                    <button
+                        id={letter}
+                        key={letter}
+                        className='letterButton'
+                        onClick={swapLetter}
+                    >
+                        {letter}
+                    </button>
+                ))}
             </div>
         </div>
     );
