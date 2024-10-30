@@ -93,6 +93,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 12px;
 }
 
 .catFact {
@@ -107,13 +108,14 @@ h1 {
 }
 
 .imageContainer {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1.2;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 
     img {
+        width: 100%;
         object-fit: contain;
     }
 }
