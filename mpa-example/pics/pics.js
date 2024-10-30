@@ -9,7 +9,7 @@ const swapLetter = async (event) => {
     slot.textContent = letter;
 
     const catImage = document.querySelector(".catImage");
-    const existingLoadingSpinner = document.querySelector('loadingSpinner');
+    const existingLoadingSpinner = document.querySelector('.loadingSpinner');
 
     if (!existingLoadingSpinner) {
         const loadingSpinner = document.createElement('div');
@@ -28,7 +28,7 @@ const swapLetter = async (event) => {
 
     const body = await res.json();
 
-    const loadingSpinnerToRemove = document.querySelector('loadingSpinner');
+    const loadingSpinnerToRemove = document.querySelector('.loadingSpinner');
     imageContainer.removeChild(loadingSpinnerToRemove);
 
     if (body.catUrl) {
