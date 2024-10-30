@@ -25,7 +25,7 @@ export default function handler(
     res: NextApiResponse<Data>,
 ) {
     if (req.method === 'POST') {
-        const catLetter = req.body.letterInput;
+        const catLetter = JSON.parse(req.body).letterInput;
 
         if (catLetter) {
             const imageUrl = catImageMap[catLetter as keyof typeof catImageMap];
@@ -35,6 +35,8 @@ export default function handler(
             } else {
                 res.status(204).json({ errorMessage: 'Invalid letter.' });
             }
+        } else {
+            res.status(400).json({ errorMessage: 'No letter detected.' });
         }
     } else {
         res.status(400).json({ errorMessage: 'Cat image request must be sent as a POST.' });

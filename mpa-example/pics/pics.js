@@ -3,14 +3,16 @@ const slot = document.querySelector(".letterSlot");
 const buttons = document.querySelectorAll(".letterButton");
 
 const swapLetter = async (event) => {
-  const selectedLetter = event.target.textContent;
+  const selectedLetter = event.target.id;
   slot.textContent = selectedLetter;
 
-  const res = await fetch("https://ssr-sandbox.mching.dev/api/catpicture", {
+  const res = await fetch("http://localhost:3000/api/catpicture", {
     method: "POST",
     body: JSON.stringify({ letterInput: selectedLetter }),
   });
-  const imageUrl = await res.json().body;
+
+  const body = await res.json();
+  const imageUrl = body.catUrl;
   image.src = imageUrl;
 };
 
