@@ -51,6 +51,7 @@ const CatPics = () => {
                     </button>
                 ))}
             </div>
+            <button id='x' key='x' className='letterButton' onClick={swapLetter}>x</button>
         </div>
     );
 };
