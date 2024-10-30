@@ -7,12 +7,23 @@ const swapLetter = async (event) => {
     const letter = event.currentTarget.id;
     slot.textContent = letter;
 
+    const existingLoadingSpinner = document.querySelector('loadingSpinner');
+
+    if (!existingLoadingSpinner) {
+        const loadingSpinner = document.createElement('div');
+        loadingSpinner.className = 'loadingSpinner';
+        contentContainer.insertAdjacentElement('afterbegin', loadingSpinner);
+    }
+
     const res = await fetch("https://ssr-sandbox.mching.dev/api/catpicture", {
         method: "POST",
         body: JSON.stringify({ letterInput: letter }),
     });
 
     const body = await res.json();
+
+    const loadingSpinnerToRemove = document.querySelector('loadingSpinner');
+    contentContainer.removeChild(loadingSpinnerToRemove);
 
     const image = document.querySelector(".catImage");
 

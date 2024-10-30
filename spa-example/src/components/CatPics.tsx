@@ -6,9 +6,11 @@ export default function CatPics() {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
     const [imageUrl, setImageUrl] = useState<string>('');
     const [subtitle, setSubtitle] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const swapLetter = async (event: React.MouseEvent) => {
         const letter = event.currentTarget.id ?? '';
+        setIsLoading(true);
         setSelectedLetter(letter || '_');
 
         const res = await fetch('https://ssr-sandbox.mching.dev/api/catpicture', {
@@ -18,6 +20,7 @@ export default function CatPics() {
 
         const body = await res.json();
         setImageUrl(body.catUrl ?? '');
+        setIsLoading(false);
 
         if (letter === 'f') {
             setSubtitle('that\'s not very nice');
@@ -38,6 +41,7 @@ export default function CatPics() {
 
     return (
         <div className='contentContainer'>
+            {isLoading && <div className='loadingSpinner' />}
             {imageUrl && (
                 <div className='imageContainer'>
                     <img className='catImage' src={imageUrl} alt='this is cat' />
