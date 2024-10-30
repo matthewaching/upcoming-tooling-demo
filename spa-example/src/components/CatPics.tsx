@@ -27,9 +27,11 @@ const CatPics = () => {
 
     return (
         <div className='contentContainer'>
-            <div className='imageContainer'>
-                <img className='catDisplay' src={imageUrl} alt='this is cat' />
-            </div>
+            {selectedLetter !== '_' && (
+                <div className='imageContainer'>
+                    <img className='catImage' src={imageUrl} alt='this is cat' />
+                </div>
+            )}
             <h1>
                 {'this is a '}
                 <span className='letterSlot'>

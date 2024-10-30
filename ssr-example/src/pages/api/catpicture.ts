@@ -33,7 +33,7 @@ export default function handler(
             if (imageUrl) {
                 res.status(200).json({ catUrl: imageUrl });
             } else {
-                res.status(204).json({ errorMessage: 'Invalid letter.' });
+                res.status(404).json({ errorMessage: 'Invalid letter.' });
             }
         } else {
             res.status(400).json({ errorMessage: 'No letter detected.' });

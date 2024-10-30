@@ -31,9 +31,11 @@ export default function CatPics() {
             </Head>
             <Link href='/'>go to cat facts</Link>
             <div className='contentContainer'>
-                <div className='imageContainer'>
-                    <Image className='catDisplay' src={imageUrl} alt='this is cat' />
-                </div>
+                {selectedLetter !== '_' && (
+                    <div className='imageContainer'>
+                        <Image className='catImage' src={imageUrl} alt='this is cat' />
+                    </div>
+                )}
                 <h1>
                     {'this is a '}
                     <span className='letterSlot'>
