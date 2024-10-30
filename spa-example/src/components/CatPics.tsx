@@ -41,12 +41,12 @@ export default function CatPics() {
 
     return (
         <div className='contentContainer'>
-            {isLoading && <div className='loadingSpinner' />}
-            {imageUrl && (
-                <div className='imageContainer'>
+            <div className='imageContainer'>
+                {isLoading && <div className='loadingSpinner' />}
+                {!isLoading && imageUrl && (
                     <img className='catImage' src={imageUrl} alt='this is cat' />
-                </div>
-            )}
+                )}
+            </div>
             <div className="headerContainer">
                 <h1>
                     {'this is a '}
