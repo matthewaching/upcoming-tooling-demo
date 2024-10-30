@@ -2,7 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-    catUrl: string;
+    catUrl?: string;
+    errorMessage?: string;
 };
 
 const catImageMap = {
@@ -32,10 +33,10 @@ export default function handler(
             if (imageUrl) {
                 res.status(200).json({ catUrl: imageUrl });
             } else {
-                res.status(204);
+                res.status(204).json({ errorMessage: 'Invalid letter.' });
             }
         }
     } else {
-        res.status(400);
+        res.status(400).json({ errorMessage: 'Cat image request must be sent as a POST.' });
     }
 }
