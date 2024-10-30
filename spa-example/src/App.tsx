@@ -18,7 +18,7 @@ function App() {
 
     return (
         <div id="app">
-            <button onClick={handleLinkClick}>{linkString}</button>
+            <button className='csrLinkButton' onClick={handleLinkClick}>{linkString}</button>
             {currentPage === 'facts' && <CatFacts />}
             {currentPage === 'pics' && <CatPics />}
         </div>

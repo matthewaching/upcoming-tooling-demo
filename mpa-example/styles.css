@@ -25,7 +25,7 @@ body {
     min-width: 320px;
 }
 
-button {
+button:not(.csrLinkButton) {
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -37,12 +37,12 @@ button {
     transition: border-color 0.25s;
 }
 
-button:hover {
+button:hover:not(.csrLinkButton) {
     border-color: #646cff;
 }
 
-button:focus,
-button:focus-visible {
+button:focus:not(.csrLinkButton),
+button:focus-visible:not(.csrLinkButton) {
     outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -56,7 +56,7 @@ button:focus-visible {
         color: #747bff;
     }
 
-    button {
+    button:not(.csrLinkButton) {
         background-color: #f9f9f9;
     }
 }
@@ -68,6 +68,21 @@ a {
 }
 
 a:hover {
+    color: #535bf2;
+}
+
+.csrLinkButton {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+    background: none;
+    border: none;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.csrLinkButton:hover {
     color: #535bf2;
 }
 
@@ -88,7 +103,7 @@ h1 {
 }
 
 .contentContainer {
-    height: 60vh;
+    height: 80%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -109,7 +124,8 @@ h1 {
 }
 
 .imageContainer {
-    aspect-ratio: 1 / 1.2;
+    width: 400px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;

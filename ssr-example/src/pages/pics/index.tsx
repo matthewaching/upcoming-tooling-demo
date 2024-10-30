@@ -44,7 +44,7 @@ export default function CatPics() {
             <div className='contentContainer'>
                 {imageUrl && (
                     <div className='imageContainer'>
-                        <Image className='catImage' src={imageUrl} alt='this is cat' />
+                        <Image className='catImage' src={imageUrl} alt='this is cat' height={500} width={400} />
                     </div>
                 )}
                 <div className="headerContainer">

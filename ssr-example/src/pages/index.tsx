@@ -9,11 +9,9 @@ export default function CatFacts() {
     useEffect(() => {
         const fetchDailyFact = async () => {
             setIsLoading(true);
-            const res = await fetch(
-                "https://cat-fact.herokuapp.com/facts/5a4aab322c99ee00219e11c5"
-            );
+            const res = await fetch('https://ssr-sandbox.mching.dev/api/dailyfact');
             const body = await res.json();
-            setDailyFact(body.text);
+            setDailyFact(body.dailyFact);
             setIsLoading(false);
         };
 
@@ -26,13 +24,11 @@ export default function CatFacts() {
                 <title>cat facts</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
-            <div id='app'>
-                <Link href="/pics">go to cat pics</Link>
-                <div className='contentContainer'>
-                    <h1>cat fact of the day</h1>
-                    {isLoading && <div className='loadingSpinner' />}
-                    {!isLoading && <span className='catFact'>{dailyFact}</span>}
-                </div>
+            <Link href="/pics">go to cat pics</Link>
+            <div className='contentContainer'>
+                <h1>cat fact of the day</h1>
+                {isLoading && <div className='loadingSpinner' />}
+                {!isLoading && <span className='catFact'>{dailyFact}</span>}
             </div>
         </>
     );

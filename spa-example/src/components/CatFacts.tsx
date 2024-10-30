@@ -7,11 +7,9 @@ const CatFacts = () => {
     useEffect(() => {
         const fetchDailyFact = async () => {
             setIsLoading(true);
-            const res = await fetch(
-                "https://cat-fact.herokuapp.com/facts/5a4aab322c99ee00219e11c5"
-            );
+            const res = await fetch('https://ssr-sandbox.mching.dev/api/dailyfact');
             const body = await res.json();
-            setDailyFact(body.text);
+            setDailyFact(body.dailyFact);
             setIsLoading(false);
         };
 
