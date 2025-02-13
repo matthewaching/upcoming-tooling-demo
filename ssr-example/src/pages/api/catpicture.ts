@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
     catUrl?: string;
+    subtitle?: string;
     errorMessage?: string;
 };
 
@@ -22,6 +23,13 @@ const catImageMap = {
     x: 'https://react19-chat.s3.us-east-1.amazonaws.com/picturenoworko',
 };
 
+const catSubtitles = {
+    f: 'that\'s not very nice',
+    fl: 'don\'t tread on me',
+    l: 'the gainz',
+    gy: 'sheeeeesh',
+};
+
 export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>,
@@ -33,7 +41,7 @@ export default function handler(
             const imageUrl = catImageMap[catLetter as keyof typeof catImageMap];
 
             if (imageUrl) {
-                res.status(200).json({ catUrl: imageUrl });
+                res.status(200).json({ catUrl: imageUrl, subtitle: catSubtitles[catLetter as keyof typeof catSubtitles] });
             } else {
                 res.status(404).json({ errorMessage: 'Invalid letter.' });
             }
