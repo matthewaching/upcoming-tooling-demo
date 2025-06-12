@@ -1,2 +1,3 @@
-# server-react-sandbox
-Sandbox repository for Server-Side React presentation
+# upcoming-tooling-demo
+
+Demo repository for "Upcoming Tooling in React 19: View Transitions & Offscreen Activities"
