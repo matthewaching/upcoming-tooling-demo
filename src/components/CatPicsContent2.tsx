@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { fetchImage, swapLetter } from './actions';
+import EmojiMenu from './EmojiMenu/EmojiMenu';
 
 const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy', 'x'];
 
 export default function CatPicsContent2() {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
+    const [selectedEmoji, setSelectedEmoji] = useState<string>('\u{1F63A}');
     const [imageUrl, setImageUrl] = useState<string>('');
     const [subtitle, setSubtitle] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,12 +27,23 @@ export default function CatPicsContent2() {
         setIsLoading(false);
     };
 
+    const handleEmojiSelected = (emoji: string) => {
+        setSelectedEmoji(emoji);
+        setSelectedLetter(emoji);
+        setImageUrl('');
+        setSubtitle('');
+    };
+
     return (
         <>
             <div className='imageContainer'>
                 {isLoading && <div className='loadingSpinner' />}
-                {!isLoading && imageUrl && (
-                    <Image className='catImage' src={imageUrl} alt='this is cat' height={500} width={400} />
+                {!isLoading && (
+                    imageUrl ?
+                        <Image className='catImage' src={imageUrl} alt='this is cat' height={500} width={400} /> :
+                        <div className='placeholderEmoji'>
+                            {selectedEmoji ? selectedEmoji : 'Click a button to load a cat image!'}
+                        </div>
                 )}
             </div >
             <div className="headerContainer">
@@ -54,6 +67,9 @@ export default function CatPicsContent2() {
                         {letter}
                     </button>
                 ))}
+            </div>
+            <div>
+                <EmojiMenu onEmojiSelected={handleEmojiSelected} />
             </div>
         </>
     );

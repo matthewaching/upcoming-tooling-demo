@@ -187,3 +187,51 @@ h1 {
     border-radius: 16px;
     cursor: pointer;
 }
+
+.placeholderEmoji {
+    font-size: 144px;
+}
+
+.emojiMenuButton {
+    padding: 0;
+    padding-bottom: 1px;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    align-self: flex-start;
+}
+
+.emojiContainer {
+    position: relative;
+    padding: 8px 30px 24px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.emojiMenu {
+    position: absolute;
+    top: 36px;
+    padding: 4px;
+    border: 1px solid grey;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    background-color: white;
+    z-index: 10;
+}
+
+.emojiButton {
+    padding: 0;
+    padding-bottom: 1px;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    align-self: flex-start;
+}

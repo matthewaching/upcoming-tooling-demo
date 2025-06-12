@@ -6,3 +6,10 @@ export const emojis = [
     '\u{1F628}', '\u{1F629}', '\u{1F62A}', '\u{1F62B}', '\u{1F62C}', '\u{1F62D}', '\u{1F62E}', '\u{1F62F}', '\u{1F630}', '\u{1F631}',
     '\u{1F632}', '\u{1F633}', '\u{1F634}', '\u{1F635}', '\u{1F636}', '\u{1F637}'
 ];
+
+export function stallComponent(ms: number = 1) {
+    const startTime = performance.now();
+    while (performance.now() - startTime < ms) {
+        // Do nothing for 1 ms per item to emulate extremely slow code
+    }
+};

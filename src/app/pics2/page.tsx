@@ -1,4 +1,4 @@
-import CatPicsContent from '@/components/CatPicsContent';
+import CatPicsContent2 from '@/components/CatPicsContent2';
 import Head from 'next/head';
 
 export default function CatPics2() {
@@ -8,7 +8,7 @@ export default function CatPics2() {
                 <title>cat pics v2</title>
             </Head>
             <div className='contentContainer'>
-                <CatPicsContent />
+                <CatPicsContent2 />
             </div>
         </>
     );

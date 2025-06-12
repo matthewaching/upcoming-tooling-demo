@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { emojis } from "./emojis";
+import { emojis } from "./helpers";
 import EmojiButton from "./EmojiButton";
 
 type Props = { onEmojiSelected: (value: string) => void };
@@ -11,16 +11,17 @@ const EmojiMenu = ({ onEmojiSelected }: Props) => {
     const menuRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        const checkMenuClick = (event: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setMenuAnchor(null);
+        if (menuAnchor) {
+            const checkMenuClick = (event: MouseEvent) => {
+                if (menuRef.current && !menuRef.current.contains(event.target as Node) && menuRef.current !== event.target) {
+                    setMenuAnchor(null);
+                }
             }
+            document.addEventListener('click', checkMenuClick);
+
+            return () => document.removeEventListener('click', checkMenuClick);
         }
-
-        document.addEventListener('click', checkMenuClick);
-
-        return () => document.removeEventListener('click', checkMenuClick);
-    }, []);
+    }, [menuAnchor]);
 
     const toggleEmojiMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
         const targetNode = event.currentTarget;
@@ -37,24 +38,15 @@ const EmojiMenu = ({ onEmojiSelected }: Props) => {
         setDisplayEmoji(event.currentTarget.id);
     };
 
-    // Exercise 1: Memoization
-    // const philosophizeAboutLife = () => {
-    //     console.log('What kind of dog is best?');
-    //     stallComponent(100);
-    //     console.log('Good dog.');
-    // };
-
-    // philosophizeAboutLife();
-
     return (
-        <>
+        <div className='emojiContainer'>
             <button className='emojiMenuButton' onClick={toggleEmojiMenu}>{displayEmoji}</button>
             {menuAnchor && (
                 <div className='emojiMenu' ref={menuRef}>
                     {emojis.map(emoji => <EmojiButton key={emoji} emoji={emoji} onClick={handleEmojiSelect} onMouseEnter={handleEmojiHover} />)}
                 </div>
             )}
-        </>
+        </div>
     )
 }
 
