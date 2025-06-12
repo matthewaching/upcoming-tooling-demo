@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import Image from 'next/image';
 import { fetchImage, swapLetter } from './actions';
 
 const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy', 'x'];
 
-export default function CatPicsContent() {
+const CatPicsContent = () => {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
     const [imageUrl, setImageUrl] = useState<string>('');
     const [subtitle, setSubtitle] = useState<string>('');
@@ -57,4 +57,6 @@ export default function CatPicsContent() {
             </div>
         </>
     );
-}
+};
+
+export default memo(CatPicsContent);

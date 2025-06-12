@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { fetchImage, swapLetter } from './actions';
 import EmojiMenu from './EmojiMenu/EmojiMenu';
 
 const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy', 'x'];
 
-export default function CatPicsContent2() {
+const CatPicsContent2 = () => {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
     const [selectedEmoji, setSelectedEmoji] = useState<string>('\u{1F63A}');
     const [imageUrl, setImageUrl] = useState<string>('');
@@ -27,12 +27,12 @@ export default function CatPicsContent2() {
         setIsLoading(false);
     };
 
-    const handleEmojiSelected = (emoji: string) => {
+    const handleEmojiSelected = useCallback((emoji: string) => {
         setSelectedEmoji(emoji);
         setSelectedLetter(emoji);
         setImageUrl('');
         setSubtitle('');
-    };
+    }, []);
 
     return (
         <>
@@ -68,9 +68,9 @@ export default function CatPicsContent2() {
                     </button>
                 ))}
             </div>
-            <div>
-                <EmojiMenu onEmojiSelected={handleEmojiSelected} />
-            </div>
+            <EmojiMenu onEmojiSelected={handleEmojiSelected} />
         </>
     );
-}
+};
+
+export default memo(CatPicsContent2);

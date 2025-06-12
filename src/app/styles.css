@@ -103,7 +103,7 @@ h1 {
 }
 
 .contentContainer {
-    height: 80%;
+    height: 60%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -188,20 +188,35 @@ h1 {
     cursor: pointer;
 }
 
-.placeholderEmoji {
-    font-size: 144px;
+.versionSelector {
+    padding: 24px;
+    display: flex;
+    gap: 12px;
+    align-self: center;
 }
 
-.emojiMenuButton {
-    padding: 0;
-    padding-bottom: 1px;
-    height: 28px;
-    width: 28px;
+.themeSelector {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    align-self: flex-start;
+    align-self: center;
+}
+
+.theme-blue {
+    background-color: rgb(226, 247, 255) !important;
+}
+
+.theme-purple {
+    background-color: rgb(245, 224, 255) !important;
+}
+
+.hiddenTab {
+    display: none;
+}
+
+.placeholderEmoji {
+    font-size: 120px;
 }
 
 .emojiContainer {
@@ -209,12 +224,11 @@ h1 {
     padding: 8px 30px 24px 30px;
     display: flex;
     flex-direction: column;
+    align-items: center;;
     gap: 6px;
 }
 
 .emojiMenu {
-    position: absolute;
-    top: 36px;
     padding: 4px;
     border: 1px solid grey;
     border-radius: 6px;
@@ -222,9 +236,10 @@ h1 {
     grid-template-columns: repeat(12, 1fr);
     background-color: white;
     z-index: 10;
+    gap: 8px;
 }
 
-.emojiButton {
+button.emojiButton {
     padding: 0;
     padding-bottom: 1px;
     height: 28px;
@@ -234,4 +249,8 @@ h1 {
     align-items: center;
     background-color: transparent;
     align-self: flex-start;
+}
+
+.emojiButton.emojiPrevClicked {
+    border: 1px solid blue
 }

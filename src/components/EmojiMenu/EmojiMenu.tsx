@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { emojis } from "./helpers";
 import EmojiButton from "./EmojiButton";
 
@@ -6,7 +6,7 @@ type Props = { onEmojiSelected: (value: string) => void };
 
 const EmojiMenu = ({ onEmojiSelected }: Props) => {
     const [menuAnchor, setMenuAnchor] = useState<HTMLButtonElement | null>(null);
-    const [displayEmoji, setDisplayEmoji] = useState<string>('\u{1F600}');
+    const [selectedEmojis, setSelectedEmojis] = useState<string[]>([]);
 
     const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,29 +23,25 @@ const EmojiMenu = ({ onEmojiSelected }: Props) => {
         }
     }, [menuAnchor]);
 
-    const toggleEmojiMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const targetNode = event.currentTarget;
-        event.stopPropagation();
-        setMenuAnchor(currentAnchor => currentAnchor ? null : targetNode);
-    };
+    const handleEmojiSelect = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+        const emojiId = event.currentTarget.id;
 
-    const handleEmojiSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
-        onEmojiSelected(event.currentTarget.id);
+        onEmojiSelected(emojiId);
+        setSelectedEmojis(prevEmojis => {
+            if (!prevEmojis.includes(emojiId)) {
+                return [...prevEmojis, emojiId];
+            }
+
+            return prevEmojis;
+        });
         setMenuAnchor(null);
-    };
-
-    const handleEmojiHover = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setDisplayEmoji(event.currentTarget.id);
-    };
+    }, [onEmojiSelected]);
 
     return (
         <div className='emojiContainer'>
-            <button className='emojiMenuButton' onClick={toggleEmojiMenu}>{displayEmoji}</button>
-            {menuAnchor && (
-                <div className='emojiMenu' ref={menuRef}>
-                    {emojis.map(emoji => <EmojiButton key={emoji} emoji={emoji} onClick={handleEmojiSelect} onMouseEnter={handleEmojiHover} />)}
-                </div>
-            )}
+            <div className='emojiMenu' ref={menuRef}>
+                {emojis.map(emoji => <EmojiButton key={emoji} emoji={emoji} onClick={handleEmojiSelect} wasClicked={selectedEmojis.includes(emoji)} />)}
+            </div>
         </div>
     )
 }
