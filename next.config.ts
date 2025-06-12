@@ -48,6 +48,9 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+    // experimental: {
+    //     viewTransition: true,
+    // },
 };
 
 export default nextConfig;

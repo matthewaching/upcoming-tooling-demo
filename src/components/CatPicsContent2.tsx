@@ -2,10 +2,27 @@
 
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { getAllUrls, swapLetter } from './actions';
+import { getAllUrls } from './actions';
 import EmojiMenu from './EmojiMenu/EmojiMenu';
+// import { unstable_ViewTransition as ViewTransition } from 'react';
 
 const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy'];
+
+const swapLetter = (letter: string) => {
+    if (letter === 'f') {
+        return 'that\'s not very nice';
+    } else if (letter === 'fl') {
+        return 'don\'t tread on me';
+    } else if (letter === 'l') {
+        return 'the gainz';
+    } else if (letter === 'gy') {
+        return 'sheeeeesh';
+    } else if (letter === 'x') {
+        return 'that doesn\'t look right...';
+    } else {
+        return '';
+    }
+};
 
 const CatPicsContent2 = () => {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
@@ -23,12 +40,12 @@ const CatPicsContent2 = () => {
         })();
     }, []);
 
-    const handleClick = async (event: React.MouseEvent) => {
+    const handleClick = (event: React.MouseEvent) => {
         const letter = event.currentTarget.id ?? '';
         setSelectedLetter(letter || '_');
         setImageUrl(allUrls[letter] || '');
 
-        const subtitleRes = await swapLetter(letter);
+        const subtitleRes = swapLetter(letter);
         setSubtitle(subtitleRes);
     };
 
@@ -42,14 +59,16 @@ const CatPicsContent2 = () => {
     return (
         <>
             <div className='imageContainer'>
-                {imageUrl ?
-                    <Image className='catImage' src={imageUrl} alt='this is cat' height={500} width={400} /> :
+                {imageUrl ? (
+                    <Image className='catImage' src={imageUrl} alt='this is cat' height={350} width={300} />
+                ) : (
                     <div className='placeholderEmoji'>
                         {selectedEmoji ? selectedEmoji : 'Click a button to load a cat image!'}
                     </div>
-                }
-            </div >
+                )}
+            </div>
             <div className="headerContainer">
+                {subtitle && <p className='imageSubtitle'>{subtitle}</p>}
                 <h1>
                     {'this is a '}
                     <span className='letterSlot'>
@@ -57,7 +76,6 @@ const CatPicsContent2 = () => {
                     </span>
                     {'at cat.'}
                 </h1>
-                {subtitle && <p className='imageSubtitle'>{subtitle}</p>}
             </div>
             <div className='buttons'>
                 {availableLetters.map(letter => (
@@ -67,7 +85,9 @@ const CatPicsContent2 = () => {
                         className='letterButton'
                         onClick={handleClick}
                     >
-                        {letter !== selectedLetter && <Image src={allUrls[letter]} alt={`Cat image for ${letter}`} width={30} height={30} />}
+                        {letter !== selectedLetter && (
+                            <Image src={allUrls[letter]} alt={`Cat image for ${letter}`} width={30} height={30} />
+                        )}
                     </button>
                 ))}
             </div>

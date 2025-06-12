@@ -34,6 +34,7 @@ const CatPicsContent = () => {
                 )}
             </div >
             <div className="headerContainer">
+                {subtitle && <p className='imageSubtitle'>{subtitle}</p>}
                 <h1>
                     {'this is a '}
                     <span className='letterSlot'>
@@ -41,7 +42,6 @@ const CatPicsContent = () => {
                     </span>
                     {'at cat.'}
                 </h1>
-                {subtitle && <p className='imageSubtitle'>{subtitle}</p>}
             </div>
             <div className='buttons'>
                 {availableLetters.map(letter => (

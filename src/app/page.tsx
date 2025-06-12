@@ -1,6 +1,7 @@
 import CatFact from "@/components/CatFact";
 import Head from "next/head";
 import { Suspense } from "react";
+// import { Suspense, unstable_ViewTransition as ViewTransition } from 'react';
 
 export default function CatFacts() {
     return (

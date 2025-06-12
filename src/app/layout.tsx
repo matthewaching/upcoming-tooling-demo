@@ -12,7 +12,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     <div className="basicNav">
                         <Link className="navButton" href='/'>cat facts</Link>
                         <Link className="navButton" href="/pics">cat pics</Link>
-                        <Link className="navButton" href='/pics2'>cat pics v2</Link>
                     </div>
                     {children}
                 </div>

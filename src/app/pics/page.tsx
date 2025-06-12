@@ -30,8 +30,8 @@ const CatPics = () => {
                     >
                         v2
                     </button>
+                    <div className={`themeSelector ${selectedTheme}`} onClick={() => setSelectedTheme(selectedTheme === 'theme-blue' ? 'theme-purple' : 'theme-blue')} />
                 </div>
-                <div className={`themeSelector ${selectedTheme}`} onClick={() => setSelectedTheme(selectedTheme === 'theme-blue' ? 'theme-purple' : 'theme-blue')} />
                 <div className={`contentContainer ${selectedVersion !== 1 ? 'hiddenTab' : ''}`}>
                     <CatPicsContent />
                 </div>
