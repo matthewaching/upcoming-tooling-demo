@@ -4,6 +4,7 @@ import CatPicsContent from '@/components/CatPicsContent';
 import CatPicsContent2 from '@/components/CatPicsContent2';
 import Head from 'next/head';
 import { createContext, useState } from 'react';
+// import { createContext, useState, unstable_Activity as Activity } from 'react';
 
 export const ThemeContext = createContext<'theme-blue' | 'theme-purple'>('theme-blue');
 
@@ -32,12 +33,22 @@ const CatPics = () => {
                     </button>
                     <div className={`themeSelector ${selectedTheme}`} onClick={() => setSelectedTheme(selectedTheme === 'theme-blue' ? 'theme-purple' : 'theme-blue')} />
                 </div>
-                <div className={`contentContainer ${selectedVersion !== 1 ? 'hiddenTab' : ''}`}>
+                {selectedVersion === 1 && (
+                    <div className='contentContainer'>
+                        <CatPicsContent />
+                    </div>
+                )}
+                {selectedVersion === 2 && (
+                    <div className='contentContainer'>
+                        <CatPicsContent2 />
+                    </div>
+                )}
+                {/* <div className={`contentContainer ${selectedVersion !== 1 ? 'hiddenTab' : ''}`}>
                     <CatPicsContent />
                 </div>
                 <div className={`contentContainer ${selectedVersion !== 2 ? 'hiddenTab' : ''}`}>
                     <CatPicsContent2 />
-                </div>
+                </div> */}
             </ThemeContext>
         </>
     );
