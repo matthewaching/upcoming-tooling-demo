@@ -25,3 +25,13 @@ export const swapLetter = async (letter: string) => {
         return '';
     }
 };
+
+export const getAllUrls = async () => {
+    const res = await fetch('https://ssr-sandbox.mching.dev/api/geturls', {
+        method: 'POST',
+    });
+
+    const body = await res.json();
+
+    return body;
+};

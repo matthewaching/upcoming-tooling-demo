@@ -103,7 +103,7 @@ h1 {
 }
 
 .contentContainer {
-    height: 60%;
+    height: 70%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -121,6 +121,12 @@ h1 {
 .buttons {
     display: flex;
     gap: 16px;
+}
+
+button.letterButton {
+    height: 48px;
+    width: 48px;
+    padding: 4px;
 }
 
 .imageContainer {
@@ -233,7 +239,7 @@ h1 {
     border: 1px solid grey;
     border-radius: 6px;
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(14, 1fr);
     background-color: white;
     z-index: 10;
     gap: 8px;

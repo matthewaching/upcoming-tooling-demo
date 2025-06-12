@@ -1,30 +1,35 @@
 'use client';
 
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { fetchImage, swapLetter } from './actions';
+import { getAllUrls, swapLetter } from './actions';
 import EmojiMenu from './EmojiMenu/EmojiMenu';
 
-const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy', 'x'];
+const availableLetters = ['b', 'c', 'f', 'h', 'l', 'm', 'p', 'r', 's', 't', 'gy'];
 
 const CatPicsContent2 = () => {
     const [selectedLetter, setSelectedLetter] = useState<string>('_');
     const [selectedEmoji, setSelectedEmoji] = useState<string>('\u{1F63A}');
     const [imageUrl, setImageUrl] = useState<string>('');
     const [subtitle, setSubtitle] = useState<string>('');
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [allUrls, setAllUrls] = useState<Record<string, string>>({});
+
+    useEffect(() => {
+        (async () => {
+            const allUrls = await getAllUrls();
+            if (allUrls) {
+                setAllUrls(allUrls);
+            }
+        })();
+    }, []);
 
     const handleClick = async (event: React.MouseEvent) => {
         const letter = event.currentTarget.id ?? '';
-        setIsLoading(true);
         setSelectedLetter(letter || '_');
-
-        const imageRes = await fetchImage(letter);
-        setImageUrl(imageRes);
+        setImageUrl(allUrls[letter] || '');
 
         const subtitleRes = await swapLetter(letter);
         setSubtitle(subtitleRes);
-        setIsLoading(false);
     };
 
     const handleEmojiSelected = useCallback((emoji: string) => {
@@ -37,14 +42,12 @@ const CatPicsContent2 = () => {
     return (
         <>
             <div className='imageContainer'>
-                {isLoading && <div className='loadingSpinner' />}
-                {!isLoading && (
-                    imageUrl ?
-                        <Image className='catImage' src={imageUrl} alt='this is cat' height={500} width={400} /> :
-                        <div className='placeholderEmoji'>
-                            {selectedEmoji ? selectedEmoji : 'Click a button to load a cat image!'}
-                        </div>
-                )}
+                {imageUrl ?
+                    <Image className='catImage' src={imageUrl} alt='this is cat' height={500} width={400} /> :
+                    <div className='placeholderEmoji'>
+                        {selectedEmoji ? selectedEmoji : 'Click a button to load a cat image!'}
+                    </div>
+                }
             </div >
             <div className="headerContainer">
                 <h1>
@@ -64,7 +67,7 @@ const CatPicsContent2 = () => {
                         className='letterButton'
                         onClick={handleClick}
                     >
-                        {letter}
+                        {letter !== selectedLetter && <Image src={allUrls[letter]} alt={`Cat image for ${letter}`} width={30} height={30} />}
                     </button>
                 ))}
             </div>
