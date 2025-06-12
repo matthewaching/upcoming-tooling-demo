@@ -13,6 +13,8 @@ export const fetchImage = async (letter: string) => {
 export const swapLetter = async (letter: string) => {
     if (letter === 'f') {
         return 'that\'s not very nice';
+    } else if (letter === 'fl') {
+        return 'don\'t tread on me';
     } else if (letter === 'l') {
         return 'the gainz';
     } else if (letter === 'gy') {
