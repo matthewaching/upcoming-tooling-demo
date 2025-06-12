@@ -174,3 +174,16 @@ h1 {
         transform: rotate(360deg);
     }
 }
+
+.basicNav {
+    display: flex;
+    align-self: center;
+    gap: 64px;
+}
+
+.navButton {
+    padding: 16px;
+    background-color: #eaebff;
+    border-radius: 16px;
+    cursor: pointer;
+}
